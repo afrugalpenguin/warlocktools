@@ -5,7 +5,7 @@
 ## Version: @project-version@
 ## SavedVariablesPerCharacter: WarlockToolsDB
 ## OptionalDeps: Masque
-## X-Curse-Project-ID: PLACEHOLDER
+## X-Curse-Project-ID: 1465818
 
 Core.lua
 WhatsNew.lua
