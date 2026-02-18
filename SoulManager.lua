@@ -17,7 +17,7 @@ function SM:Init()
     else
         hudFrame:Hide()
     end
-    WT:RegisterEvents("BAG_UPDATE", "BAG_UPDATE_DELAYED", "PLAYER_ENTERING_WORLD")
+    WT:RegisterEvents("BAG_UPDATE", "BAG_UPDATE_DELAYED", "PLAYER_ENTERING_WORLD", "SPELLS_CHANGED")
 end
 
 function SM:ScanBags()
@@ -257,8 +257,7 @@ function SM:CreateHSCreation()
     hsBtn:SetSize(140, 28)
     hsBtn:SetPoint("BOTTOM", sessionFrame, "BOTTOM", 0, 12)
     hsBtn:SetAttribute("type", "spell")
-    -- Find highest rank Create Healthstone at runtime
-    local hsSpellName = GetSpellInfo(27230) -- Create Healthstone (Rank 6)
+    local hsSpellName = GetSpellInfo(WT.CREATE_HEALTHSTONE_SPELL)
     if hsSpellName then
         hsBtn:SetAttribute("spell", hsSpellName)
     end
@@ -321,6 +320,13 @@ function SM:OnEvent(event, ...)
         if isInitialLogin and WarlockToolsDB.showSessionOnLogin then
             self:UpdateSessionProgress()
             sessionFrame:Show()
+        end
+    elseif event == "SPELLS_CHANGED" then
+        if sessionFrame and sessionFrame.hsBtn and not sessionFrame.hsBtn:GetAttribute("spell") then
+            local hsSpellName = GetSpellInfo(WT.CREATE_HEALTHSTONE_SPELL)
+            if hsSpellName then
+                sessionFrame.hsBtn:SetAttribute("spell", hsSpellName)
+            end
         end
     end
 end

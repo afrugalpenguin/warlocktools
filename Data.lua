@@ -90,6 +90,9 @@ WT.FIRESTONE_ITEMS = {
     1254,  -- Lesser Firestone
 }
 
+-- Create Healthstone spell ID (Rank 6, highest in TBC)
+WT.CREATE_HEALTHSTONE_SPELL = 27230
+
 -- Soul Shard item ID
 WT.SOUL_SHARD = 6265
 
