@@ -1,0 +1,18 @@
+## Interface: 20505
+## Title: WarlockTools
+## Notes: Warlock utility addon — demons, stones, shard tracking, trade helper
+## Author: FrugalPenguin
+## Version: @project-version@
+## SavedVariablesPerCharacter: WarlockToolsDB
+## OptionalDeps: Masque
+## X-Curse-Project-ID: PLACEHOLDER
+
+Core.lua
+WhatsNew.lua
+Options.lua
+Tour.lua
+Data.lua
+MasqueHelper.lua
+PopupMenu.lua
+SoulManager.lua
+TradeHelper.lua
