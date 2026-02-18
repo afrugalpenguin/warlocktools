@@ -1,6 +1,7 @@
 WarlockTools = {}
 WarlockTools.modules = {}
 WarlockTools.version = "1.0.0"
+WarlockTools.initialized = false
 
 function WarlockTools:PropagateDrag(child)
     child:RegisterForDrag("LeftButton")
@@ -86,10 +87,12 @@ frame:SetScript("OnEvent", function(self, event, ...)
                     mod:Init()
                 end
             end
+            WarlockTools.initialized = true
             self:UnregisterEvent("ADDON_LOADED")
         end
         return
     end
+    if not WarlockTools.initialized then return end
     for name, mod in pairs(WarlockTools.modules) do
         if mod.OnEvent then
             mod:OnEvent(event, ...)

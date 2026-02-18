@@ -7,7 +7,6 @@ local buttons = {}
 local labels = {}
 local BUTTON_PADDING = 4
 local BLOCK_GAP = 6
-local BLOCK_COLS = 99
 
 local function FindSpellInBook(targetName)
     local foundID
@@ -136,7 +135,13 @@ function PM:CreatePopup()
 
     tinsert(UISpecialFrames, "WarlockToolsPopup")
 
-    popup:SetBackdrop(nil)
+    popup:SetBackdrop({
+        bgFile = "Interface\\BUTTONS\\WHITE8X8",
+        edgeFile = "Interface\\BUTTONS\\WHITE8X8",
+        edgeSize = 1,
+    })
+    popup:SetBackdropColor(0.08, 0.08, 0.12, WarlockToolsDB.popupBgAlpha)
+    popup:SetBackdropBorderColor(0.58, 0.51, 0.79, 1)
 
     SecureHandlerSetFrameRef(toggleBtn, "popup", popup)
 
@@ -293,8 +298,9 @@ function PM:BuildButtons()
 
     for qIdx, q in ipairs(quadrants) do
         if #q.spells > 0 then
-            local cols = math.min(#q.spells, BLOCK_COLS)
-            local rows = math.ceil(#q.spells / BLOCK_COLS)
+            local blockCols = WarlockToolsDB.popupColumns
+            local cols = math.min(#q.spells, blockCols)
+            local rows = math.ceil(#q.spells / blockCols)
             local blockW = cols * spacing
             local blockH = rows * spacing
 
@@ -327,7 +333,7 @@ function PM:BuildButtons()
                 if edgeY > maxAbsY then maxAbsY = edgeY end
 
                 col = col + 1
-                if col >= BLOCK_COLS then
+                if col >= blockCols then
                     col = 0
                     row = row + 1
                 end
