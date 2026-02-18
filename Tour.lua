@@ -183,20 +183,12 @@ local steps = {
             if not popup then return nil end
             popup:ClearAllPoints()
             popup:SetPoint("CENTER", UIParent, "CENTER")
-            popup:SetBackdrop({
-                bgFile = "Interface\\BUTTONS\\WHITE8X8",
-                edgeFile = "Interface\\BUTTONS\\WHITE8X8",
-                edgeSize = 1,
-            })
-            popup:SetBackdropColor(BG_COLOR[1], BG_COLOR[2], BG_COLOR[3], BG_COLOR[4])
-            popup:SetBackdropBorderColor(BORDER_COLOR[1], BORDER_COLOR[2], BORDER_COLOR[3], BORDER_COLOR[4])
             popup:Show()
             return popup
         end,
         teardown = function()
             local popup = WarlockToolsPopup
             if not popup then return end
-            popup:SetBackdrop(nil)
             if popup:IsShown() then popup:Hide() end
         end,
     },
