@@ -249,9 +249,12 @@ function PM:BuildButtons()
     -- Buffs
     local buffSpells = {}
     if cats.buffs then
+        local hasDemonArmor = FindSpellInBook("Demon Armor")
         for _, name in ipairs(WT.BUFF_NAMES) do
-            local id = FindSpellInBook(name)
-            if id then tinsert(buffSpells, { spellID = id }) end
+            if not (name == "Demon Skin" and hasDemonArmor) then
+                local id = FindSpellInBook(name)
+                if id then tinsert(buffSpells, { spellID = id }) end
+            end
         end
     end
 
