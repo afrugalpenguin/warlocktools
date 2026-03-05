@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.0.1
+- Hide Demon Skin from popup menu when Demon Armor is known
+
 ## v1.0.0
 - Initial release: HUD, popup spell menu, trade helper, healthstone creation
 - Shard/healthstone/soulstone/spellstone/firestone tracking

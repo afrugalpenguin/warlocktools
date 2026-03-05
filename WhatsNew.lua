@@ -6,6 +6,13 @@ local whatsNewFrame = nil
 
 local changelog = {
     {
+        version = "1.0.1",
+        features = {},
+        fixes = {
+            "Hide Demon Skin from popup menu when Demon Armor is known",
+        },
+    },
+    {
         version = "1.0.0",
         features = {
             "Initial release: HUD, popup spell menu, trade helper, healthstone creation",
