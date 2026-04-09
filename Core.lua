@@ -41,6 +41,9 @@ local defaults = {
     popupKeybind = nil,
     hudShowExtras = true,
     popupReleaseMode = true,
+    popupFixedPosition = false,
+    popupFixedX = 0.5,
+    popupFixedY = 0.5,
     popupCategories = { buffs = true, stones = true, demons = true, utility = true },
 }
 
