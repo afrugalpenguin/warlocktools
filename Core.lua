@@ -1,6 +1,6 @@
 WarlockTools = {}
 WarlockTools.modules = {}
-WarlockTools.version = "1.1.0"
+WarlockTools.version = "1.1.1"
 WarlockTools.initialized = false
 
 function WarlockTools:PropagateDrag(child)
