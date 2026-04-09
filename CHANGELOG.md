@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.1.0
+- Added "Open at Fixed Position" option for popup menu — opens at a saved location instead of following the cursor
+- Popup is draggable when fixed-position mode is enabled; position persists across sessions
+- Added tooltip to fixed-position checkbox describing drag behavior
+
 ## v1.0.1
 - Hide Demon Skin from popup menu when Demon Armor is known
 

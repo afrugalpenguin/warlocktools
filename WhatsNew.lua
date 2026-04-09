@@ -6,6 +6,14 @@ local whatsNewFrame = nil
 
 local changelog = {
     {
+        version = "1.1.0",
+        features = {
+            "Open at Fixed Position option for popup menu",
+            "Popup is draggable when fixed-position mode is enabled; position persists across sessions",
+        },
+        fixes = {},
+    },
+    {
         version = "1.0.1",
         features = {},
         fixes = {
