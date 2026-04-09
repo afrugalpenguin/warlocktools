@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.1.1
+- Fixed popup closing immediately in release mode when fixed-position is enabled, preventing drag repositioning
+
 ## v1.1.0
 - Added "Open at Fixed Position" option for popup menu — opens at a saved location instead of following the cursor
 - Popup is draggable when fixed-position mode is enabled; position persists across sessions
