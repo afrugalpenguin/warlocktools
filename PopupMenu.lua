@@ -115,8 +115,6 @@ function PM:CreateToggleButton()
             self:SetAttribute("typerelease", "spell")
             self:SetAttribute("spell", sp)
             return "cast"
-        elseif self:GetAttribute("fixedposition") then
-            -- fixed-position mode: keep popup open so user can drag
         else
             self:SetAttribute("popupopen", nil)
             p:Hide()
@@ -426,6 +424,16 @@ end
 function PM:UpdateFixedPosition()
     if popup then
         popup:EnableMouse(WarlockToolsDB.popupFixedPosition)
+        if not InCombatLockdown() then
+            if WarlockToolsDB.popupFixedPosition then
+                popup:ClearAllPoints()
+                local fx, fy = GetFixedPoint()
+                popup:SetPoint("CENTER", UIParent, "BOTTOMLEFT", fx, fy)
+                popup:Show()
+            else
+                popup:Hide()
+            end
+        end
     end
     if toggleBtn then
         toggleBtn:SetAttribute("fixedposition", WarlockToolsDB.popupFixedPosition and true or nil)

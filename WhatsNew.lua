@@ -6,6 +6,15 @@ local whatsNewFrame = nil
 
 local changelog = {
     {
+        version = "1.1.2",
+        features = {},
+        fixes = {
+            "Fixed popup not dismissible via keybind when using fixed-position mode",
+            "Fixed popup staying visible when toggling off fixed-position mode",
+            "Toggling on fixed-position mode now immediately shows popup for repositioning",
+        },
+    },
+    {
         version = "1.1.1",
         features = {},
         fixes = {
