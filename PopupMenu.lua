@@ -8,6 +8,11 @@ local labels = {}
 local BUTTON_PADDING = 4
 local BLOCK_GAP = 6
 
+local function GetFixedPoint()
+    local sw, sh = UIParent:GetWidth(), UIParent:GetHeight()
+    return (WarlockToolsDB.popupFixedX or 0.5) * sw, (WarlockToolsDB.popupFixedY or 0.5) * sh
+end
+
 local function FindSpellInBook(targetName)
     local foundID
     local i = 1
@@ -58,10 +63,8 @@ function PM:CreateToggleButton()
         if popup then
             popup:ClearAllPoints()
             if WarlockToolsDB.popupFixedPosition then
-                local screenW, screenH = UIParent:GetWidth(), UIParent:GetHeight()
-                popup:SetPoint("CENTER", UIParent, "BOTTOMLEFT",
-                    WarlockToolsDB.popupFixedX * screenW,
-                    WarlockToolsDB.popupFixedY * screenH)
+                local fx, fy = GetFixedPoint()
+                popup:SetPoint("CENTER", UIParent, "BOTTOMLEFT", fx, fy)
             else
                 local x, y = GetCursorPosition()
                 local scale = UIParent:GetEffectiveScale()
@@ -148,13 +151,12 @@ function PM:CreatePopup()
         end
     end)
     popup:SetScript("OnDragStop", function(self)
+        if not WarlockToolsDB.popupFixedPosition then return end
         self:StopMovingOrSizing()
-        if WarlockToolsDB.popupFixedPosition then
-            local screenW, screenH = UIParent:GetWidth(), UIParent:GetHeight()
-            local cx, cy = self:GetCenter()
-            WarlockToolsDB.popupFixedX = cx / screenW
-            WarlockToolsDB.popupFixedY = cy / screenH
-        end
+        local screenW, screenH = UIParent:GetWidth(), UIParent:GetHeight()
+        local cx, cy = self:GetCenter()
+        WarlockToolsDB.popupFixedX = cx / screenW
+        WarlockToolsDB.popupFixedY = cy / screenH
     end)
 
     tinsert(UISpecialFrames, "WarlockToolsPopup")
@@ -402,10 +404,8 @@ function PM:ShowAtCursor()
 
     popup:ClearAllPoints()
     if WarlockToolsDB.popupFixedPosition then
-        local screenW, screenH = UIParent:GetWidth(), UIParent:GetHeight()
-        popup:SetPoint("CENTER", UIParent, "BOTTOMLEFT",
-            WarlockToolsDB.popupFixedX * screenW,
-            WarlockToolsDB.popupFixedY * screenH)
+        local fx, fy = GetFixedPoint()
+        popup:SetPoint("CENTER", UIParent, "BOTTOMLEFT", fx, fy)
     else
         local x, y = GetCursorPosition()
         local scale = UIParent:GetEffectiveScale()
