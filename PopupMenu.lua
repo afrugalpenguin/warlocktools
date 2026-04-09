@@ -151,8 +151,8 @@ function PM:CreatePopup()
         end
     end)
     popup:SetScript("OnDragStop", function(self)
-        if not WarlockToolsDB.popupFixedPosition then return end
         self:StopMovingOrSizing()
+        if not WarlockToolsDB.popupFixedPosition then return end
         local screenW, screenH = UIParent:GetWidth(), UIParent:GetHeight()
         local cx, cy = self:GetCenter()
         WarlockToolsDB.popupFixedX = cx / screenW

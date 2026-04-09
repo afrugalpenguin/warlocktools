@@ -26,7 +26,7 @@ local function CreateHeader(parent, text, yOffset)
     return yOffset - 22
 end
 
-local function CreateCheckbox(parent, label, dbKey, yOffset, onChange)
+local function CreateCheckbox(parent, label, dbKey, yOffset, onChange, tooltip)
     local cb = CreateFrame("CheckButton", nil, parent, "UICheckButtonTemplate")
     cb:SetPoint("TOPLEFT", parent, "TOPLEFT", 8, yOffset)
     local cbText = cb.text or (cb.GetName and cb:GetName() and _G[cb:GetName() .. "Text"])
@@ -37,6 +37,14 @@ local function CreateCheckbox(parent, label, dbKey, yOffset, onChange)
         local text = cb:CreateFontString(nil, "OVERLAY", "GameFontHighlight")
         text:SetPoint("LEFT", cb, "RIGHT", 4, 0)
         text:SetText(label)
+    end
+    if tooltip then
+        cb:SetScript("OnEnter", function(self)
+            GameTooltip:SetOwner(self, "ANCHOR_RIGHT")
+            GameTooltip:SetText(tooltip, 1, 1, 1, 1, true)
+            GameTooltip:Show()
+        end)
+        cb:SetScript("OnLeave", function() GameTooltip:Hide() end)
     end
     cb:SetChecked(WarlockToolsDB[dbKey])
     cb:SetScript("OnClick", function(self)
@@ -282,7 +290,7 @@ local function BuildGeneralContent(parent)
     y = CreateCheckbox(parent, "Open at Fixed Position", "popupFixedPosition", y, function()
         local pm = WT.modules["PopupMenu"]
         if pm then pm:UpdateFixedPosition() end
-    end)
+    end, "When enabled, the popup opens at a saved location instead of following your cursor. Drag the popup to reposition it.")
     y = CreateHeader(parent, "Popup Categories", y - 6)
     local categoryItems = {
         { label = "Show Buffs",   key = "buffs" },
