@@ -279,6 +279,10 @@ local function BuildGeneralContent(parent)
         local pm = WT.modules["PopupMenu"]
         if pm then pm:UpdateCloseOnCast() end
     end)
+    y = CreateCheckbox(parent, "Open at Fixed Position", "popupFixedPosition", y, function()
+        local pm = WT.modules["PopupMenu"]
+        if pm then pm:UpdateFixedPosition() end
+    end)
     y = CreateHeader(parent, "Popup Categories", y - 6)
     local categoryItems = {
         { label = "Show Buffs",   key = "buffs" },
