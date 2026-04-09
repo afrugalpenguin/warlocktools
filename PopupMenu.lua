@@ -43,6 +43,7 @@ function PM:Init()
     self:CreatePopup()
     self:ApplyKeybind()
     self:UpdateCloseOnCast()
+    self:UpdateFixedPosition()
     WT:RegisterEvents("SPELLS_CHANGED", "PLAYER_REGEN_ENABLED")
 end
 
@@ -56,9 +57,16 @@ function PM:CreateToggleButton()
     function toggleBtn:WLT_PositionPopup()
         if popup then
             popup:ClearAllPoints()
-            local x, y = GetCursorPosition()
-            local scale = UIParent:GetEffectiveScale()
-            popup:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x / scale, y / scale)
+            if WarlockToolsDB.popupFixedPosition then
+                local screenW, screenH = UIParent:GetWidth(), UIParent:GetHeight()
+                popup:SetPoint("CENTER", UIParent, "BOTTOMLEFT",
+                    WarlockToolsDB.popupFixedX * screenW,
+                    WarlockToolsDB.popupFixedY * screenH)
+            else
+                local x, y = GetCursorPosition()
+                local scale = UIParent:GetEffectiveScale()
+                popup:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x / scale, y / scale)
+            end
         end
     end
 
@@ -132,6 +140,22 @@ function PM:CreatePopup()
     popup:SetClampedToScreen(true)
     popup:Hide()
     popup:EnableMouse(false)
+    popup:SetMovable(true)
+    popup:RegisterForDrag("LeftButton")
+    popup:SetScript("OnDragStart", function(self)
+        if WarlockToolsDB.popupFixedPosition and not InCombatLockdown() then
+            self:StartMoving()
+        end
+    end)
+    popup:SetScript("OnDragStop", function(self)
+        self:StopMovingOrSizing()
+        if WarlockToolsDB.popupFixedPosition then
+            local screenW, screenH = UIParent:GetWidth(), UIParent:GetHeight()
+            local cx, cy = self:GetCenter()
+            WarlockToolsDB.popupFixedX = cx / screenW
+            WarlockToolsDB.popupFixedY = cy / screenH
+        end
+    end)
 
     tinsert(UISpecialFrames, "WarlockToolsPopup")
 
@@ -375,18 +399,31 @@ end
 
 function PM:ShowAtCursor()
     if InCombatLockdown() then return end
-    local x, y = GetCursorPosition()
-    local scale = UIParent:GetEffectiveScale()
-    x, y = x / scale, y / scale
 
     popup:ClearAllPoints()
-    popup:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x, y)
+    if WarlockToolsDB.popupFixedPosition then
+        local screenW, screenH = UIParent:GetWidth(), UIParent:GetHeight()
+        popup:SetPoint("CENTER", UIParent, "BOTTOMLEFT",
+            WarlockToolsDB.popupFixedX * screenW,
+            WarlockToolsDB.popupFixedY * screenH)
+    else
+        local x, y = GetCursorPosition()
+        local scale = UIParent:GetEffectiveScale()
+        x, y = x / scale, y / scale
+        popup:SetPoint("CENTER", UIParent, "BOTTOMLEFT", x, y)
+    end
     popup:Show()
 end
 
 function PM:UpdateCloseOnCast()
     if toggleBtn then
         toggleBtn:SetAttribute("closeOnCast", WarlockToolsDB.popupCloseOnCast and true or nil)
+    end
+end
+
+function PM:UpdateFixedPosition()
+    if popup then
+        popup:EnableMouse(WarlockToolsDB.popupFixedPosition)
     end
 end
 
