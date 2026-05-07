@@ -25,6 +25,7 @@ WT.UTILITY_NAMES = {
     "Ritual of Souls",
     "Eye of Kilrogg",
     "Sense Demons",
+    "Demonic Sacrifice",
 }
 
 -- Stone creation spell names (for FindSpellInBook, highest rank auto-selected)
