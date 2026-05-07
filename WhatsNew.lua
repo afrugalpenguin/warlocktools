@@ -6,6 +6,13 @@ local whatsNewFrame = nil
 
 local changelog = {
     {
+        version = "1.1.3",
+        features = {
+            "Demonic Sacrifice added to the utility spell menu",
+        },
+        fixes = {},
+    },
+    {
         version = "1.1.2",
         features = {},
         fixes = {

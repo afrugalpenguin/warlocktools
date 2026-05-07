@@ -1,5 +1,8 @@
 # Changelog
 
+## v1.1.3
+- Added Demonic Sacrifice to the utility quadrant of the spell popup menu
+
 ## v1.1.2
 - Fixed popup not dismissible via keybind when using fixed-position mode
 - Fixed popup staying visible when toggling off fixed-position mode
